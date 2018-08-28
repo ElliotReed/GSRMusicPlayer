@@ -1,4 +1,4 @@
-document.getElementById('audio').controls = true;
+// document.getElementById('audio').controls = true;
 
 const currentSong = {
   album: "",
@@ -7,7 +7,7 @@ const currentSong = {
 
 const audioController = {
   audioElement: document.getElementById('audio'),
-
+  
   setAudio: function() {
     this.audioElement.src = "./cdn/sounds/" + currentSong.album + "/" + currentSong.song + ".m4a"; 
     return this.audioElement;
@@ -19,21 +19,66 @@ const audioController = {
     } else {
       this.audioElement.play();
     }
-    controls.togglePlayPause();
+    playerControls.togglePlayPause();
+  },
+  
+  getCurrentTime: function() {
+    const time = this.audioElement.currentTime;
+    return time;
+  },
+  
+  getDuration: function() {
+    const duration = Math.floor(this.audioElement.duration);
+    return duration;
+  },
+  
+  setVolume: function() {
+    this.audioElement.volume = (playerControls.volume.value)/ 100;
+  },
+
+  setCurrentTime: function() {
+    const e = window.event;
+    const percent = (e.pageX / e.srcElement.clientWidth);
+    this.audioElement.currentTime = this.audioElement.duration * percent;
   }
 }
 
-const controls = {
+const playerControls = {
   playPauseButton: document.querySelector('.play-pause'),
   timeRemaining: document.getElementById('time-remaining'),
+  time: document.getElementById('time'),
+  timeTotal: document.getElementById('time-total'),
+  volume: document.querySelector('.volume'),
+  progressBar: document.getElementById('progressBar'),
+
+  showPlaying: function() {
+    const duration = audioController.getDuration();
+    const now = audioController.getCurrentTime();
+    if (duration) {
+      this.progressBar.value = (now/duration)*100;
+    }
+  },
 
   play: function() {
     this.playPauseButton.classList.add('pause');
   },
-
+  
   togglePlayPause: function() {
     this.playPauseButton.classList.toggle('pause');
-  }
+  },
+        
+  setPlayTime: function() {
+    this.time.textContent = formatTime(audioController.getCurrentTime());
+  },
+
+  setRemainingTime: function() {
+    this.timeRemaining.textContent = "- " + formatTime((audioController.getDuration()) - (audioController.getCurrentTime()));
+  },
+  
+  setDuration: function() {
+    this.timeTotal.textContent = formatTime(audioController.getDuration());
+    this.timeRemaining.textContent = formatTime(audioController.getDuration());
+  }, 
 }
 
 const playerInfo = {
@@ -48,30 +93,15 @@ const playerInfo = {
   }
 }
 
-
 function stopSong() {
   const audio = document.getElementById('audio');
   audio.currentTime = 0;
 }
 
-function updateTime() {
-  const audio = document.getElementById('audio');
-  const time = document.getElementById('time');
-  const seconds = Math.floor(audio.currentTime);
-  const audioInSeconds = formatTime(seconds);
-  time.textContent = audioInSeconds;
-}
 
-
-function setDuration() {
-  const audio = document.getElementById('audio');
-  const timeTotal = document.getElementById('time-total');
-  timeTotal.textContent = audio.duration;
-} 
-
-
-function formatTime(seconds) {
-  minutes = Math.floor(seconds / 60);
+function formatTime(time) {
+  let seconds = Math.floor(time);
+  let minutes = Math.floor(seconds / 60);
   minutes = (minutes >= 10) ? minutes : "0" + minutes;
   seconds = Math.floor(seconds % 60);
   seconds = (seconds >= 10) ? seconds : "0" + seconds;
@@ -82,7 +112,7 @@ function songClicked(e) {
   currentSong.album = e.target.parentNode.getAttribute('data-album');
   currentSong.song = e.target.textContent;
   audioController.setAudio().play();
-  controls.play();
+  playerControls.play();
   playerInfo.setPlayerInfo();
 }
 

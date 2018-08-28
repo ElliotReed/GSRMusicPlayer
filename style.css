@@ -30,6 +30,94 @@ body {
   color: var(--color-light);
 }
 
+/* #region volume range input */
+input[type=range].volume {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 5px 0;
+}
+input[type=range].volume:focus {
+  outline: none;
+}
+input[type=range].volume::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  box-shadow: 1px 1px 7.5px #191919, 0px 0px 1px #262626;
+  background: rgba(175, 175, 175, 0.64);
+  border-radius: 2.5px;
+  border: 0.25px solid #191919;
+}
+input[type=range].volume::-webkit-slider-thumb {
+  box-shadow: 1px 1px 7.5px #191919, 0px 0px 1px #262626;
+  border: 0.25px solid #191919;
+  height: 15px;
+  width: 15px;
+  border-radius: 8px;
+  background: #afafaf;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -5.25px;
+}
+input[type=range].volume:focus::-webkit-slider-runnable-track {
+  background: rgba(201, 201, 201, 0.64);
+}
+input[type=range].volume::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  box-shadow: 1px 1px 7.5px #191919, 0px 0px 1px #262626;
+  background: rgba(175, 175, 175, 0.64);
+  border-radius: 2.5px;
+  border: 0.25px solid #191919;
+}
+input[type=range].volume::-moz-range-thumb {
+  box-shadow: 1px 1px 7.5px #191919, 0px 0px 1px #262626;
+  border: 0.25px solid #191919;
+  height: 15px;
+  width: 15px;
+  border-radius: 8px;
+  background: #afafaf;
+  cursor: pointer;
+}
+input[type=range].volume::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range].volume::-ms-fill-lower {
+  background: rgba(150, 150, 150, 0.64);
+  border: 0.25px solid #191919;
+  border-radius: 5px;
+  box-shadow: 1px 1px 7.5px #191919, 0px 0px 1px #262626;
+}
+input[type=range].volume::-ms-fill-upper {
+  background: rgba(175, 175, 175, 0.64);
+  border: 0.25px solid #191919;
+  border-radius: 5px;
+  box-shadow: 1px 1px 7.5px #191919, 0px 0px 1px #262626;
+}
+input[type=range].volume::-ms-thumb {
+  box-shadow: 1px 1px 7.5px #191919, 0px 0px 1px #262626;
+  border: 0.25px solid #191919;
+  height: 15px;
+  width: 15px;
+  border-radius: 8px;
+  background: #afafaf;
+  cursor: pointer;
+  height: 5px;
+}
+input[type=range].volume:focus::-ms-fill-lower {
+  background: rgba(175, 175, 175, 0.64);
+}
+input[type=range].volume:focus::-ms-fill-upper {
+  background: rgba(201, 201, 201, 0.64);
+}
+/* #endregion range input */
+
 .player-container {
   display: flex;
   flex-wrap: wrap;
@@ -68,7 +156,7 @@ body {
 
 .controls {
   position: relative;
-  display: flex;
+  display: block;
   /* height: 5em; */
   justify-content: center;
   border-radius: var(--border-radius);
@@ -76,15 +164,52 @@ body {
   padding: .5em;
 }
 
+.progress-bar-container {
+  width: 100%;
+}
+
+#progressBar {
+  width: 100%;
+}
+
+#progress-value {
+  width: 100px;
+}
+
+.top-controls {
+  display: block;
+}
+
+.time-display {
+  display: flex;
+  /* width: 2.5em; */
+  height: 2.5em;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+#time-total {
+  margin-left: 1em;
+}
+
+.bottom-controls {
+  display: flex;
+}
+
+.previous {
+  display: none;
+}
+
 .play {
-  position: relative;
+  /* position: relative; */
   display: flex;
   width: 2.5em;
   height: 2.5em;
   justify-content: center;
   align-items: center;
   background: transparent;
-  /* border: 1px solid white; */
+  border: 1px solid white;
   cursor: pointer;
 }
 
@@ -106,28 +231,24 @@ body {
   border-width: 0 0 0 .75em;
 }
 
-.previous {
-  display: none;
-}
 .next {
   display: none;
 }
-.time-display {
+
+.volume-wrapper {
+  /* display: none; */
+  border: 1px solid white;
   display: flex;
-  /* width: 2.5em; */
-  height: 2.5em;
+  width: 6em;
   justify-content: center;
   align-items: center;
+}
+
+.volume {
   background: transparent;
 }
 
-#time-total {
-  margin-left: 1em;
-}
 .mute {
-  display: none;
-}
-.playing {
   display: none;
 }
 .autoplay {
@@ -135,14 +256,6 @@ body {
 }
 .shuffle {
   display: none;
-}
-
-.volume {
-  display: none;
-  position: absolute;
-  right: -4em;
-  top: -6em;
-  transform: rotate(270deg);
 }
 
 .selector {

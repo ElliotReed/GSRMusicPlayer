@@ -26,24 +26,44 @@
         </div>
       </div>
       <div class="controls">
-        <input type="range" class="volume" min="0" max="100" value="75" onChange="handleVolume()" />
-        <button class="previous" onclick="playPreviousSong()"></button>
-        <div class="play" onclick="audioController.togglePlaySong()">
-          <div class="play-pause"></div>
+        <progress id="progressBar" max="100" value="0" onclick="audioController.setCurrentTime()"></progress>
+        <div class="top-controls">
+          <div class="time-display">
+            <div id="time">00:00</div>
+            <div id="time-break"> / </div> 
+            <div id="time-remaining">00:00</div>
+            <div id="time-total">00:00</div>
+          </div>
         </div>
-        <button class="next" onclick="playNextSong()"></button>
-        <div class="time-display">
-          <span id="time">3:03</span>
-          <span id="time-break">/</span> 
-          <span id="time-remaining">6:43</span>
-          <span id="time-total">6:43</span>
-          <input name="playing" type="range" class="playing" class="volume" min="0" max="100" value="0" onclick="" />
+        <div class="bottom-controls">
+          <button class="previous" onclick="playPreviousSong()"></button>
+          <div class="previous" onclick="">
+            <!-- <div class="play-pause"></div> -->
+          </div>
+          <div class="play" onclick="audioController.togglePlaySong()">
+            <div class="play-pause"></div>
+          </div>
+          <div class="next" onclick="audioController.togglePlaySong()">
+            <!-- <div class="play-pause"></div> -->
+          </div>
+          <button class="next" onclick="playNextSong()"></button>
+          <div class="speaker" onclick="">
+            <!-- <div class="play-pause"></div> -->
+          </div>
+          <div class="volume-wrapper">
+            <input type="range" class="volume" min="0" max="100" value="75" onchange="audioController.setVolume()" />
+          </div>
+            <input name="autoplay" type="radio" class="autoplay" onclick="" />
+            <input name="shuffle" type="radio" class="shuffle" onclick="" />
+          <button class="mute" onclick="">Mute</button>
         </div>
-          <input name="autoplay" type="radio" class="autoplay" onclick="" />
-          <input name="shuffle" type="radio" class="shuffle" onclick="" />
-        <button class="mute" onclick="">Mute</button>
       </div>
-      <audio id="audio" src="./cdn/sounds/I Love Paris/I Love Paris.m4a" ontimeupdate="updateTime()"></audio>
+      <audio
+        id="audio" 
+        src="./cdn/sounds/I Love Paris/I Love Paris.m4a"
+        ontimeupdate="playerControls.setPlayTime(), playerControls.setRemainingTime(), playerControls.showPlaying()"
+        onloadeddata="playerControls.setDuration()">
+      </audio>
     </div>
     <div class="selector">
       <h6>selector</h6>
