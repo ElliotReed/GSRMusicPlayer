@@ -9,15 +9,22 @@
   --color-dark_accent: rgb(50, 50, 50);
   --border-radius: 4px;
   --border: 2px solid black;
-  --volume: 75:
+  --box-shadow: 0 2px 2px rgba(25, 25, 25, 0.25);
+  --box-shadow_inset: 0 2px 2px rgba(25, 25, 25, 0.25) inset;
 }
 
-* {
-  box-sizing: border-box;
+/*DEFAULT STYLES FOR DISPLAY*/
+*,*:before,*:after {
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  font-size:100%;
+  margin:0;
+  padding:0;
 }
 
-
-html {
+html, body {
+  height:100%;
   font-size: 100%;
 }
 
@@ -118,12 +125,127 @@ input[type=range].volume:focus::-ms-fill-upper {
 }
 /* #endregion range input */
 
+/* #region speaker */
+.cover {
+  display: flex;
+  width: 2.5em;
+	height: 2.5em;
+}
+
+.icon {
+  position: relative;
+	margin:auto;
+}
+
+/*THE ARTIFAKT ;) */
+.speaker {
+  width:0; 
+	height:0;
+	background:none;
+	border-top: calc(4em/5) solid transparent;
+	border-bottom: calc(4em/5) solid transparent; 
+	border-right: calc(5em/5) solid var(--color-light);
+	
+}
+.speaker:before {
+  content:"";
+	position:absolute;
+	top: calc(-1.3em/5);
+	left:0;
+	width: calc(5.8em/5);
+	height: calc(2.5em/5);
+	background: var(--color-light);
+	border-radius:3px 1.5em 1.5em 3px;
+}
+.speaker:after {
+  content:"";
+	position:absolute;
+	border-right:0.5em solid var(--color-light);
+	border-radius:50%;
+	/*animation*/
+	/* -webkit-animation:pump 0.1s 0.1s infinite alternate;
+  -moz-animation:pump 0.1s 0.1s infinite alternate;
+  -ms-animation:pump 0.1s 0.1s infinite alternate;
+  -o-animation:pump 0.1s 0.1s infinite alternate;
+  animation:pump 0.1s 0.1s infinite alternate; */
+}
+/* @-webkit-keyframes pump {
+  from{
+    top:-1.4em;
+		right:-7em;
+		width:2.5em;
+		height:2.5em;
+	}
+  to{
+    top:-1.8em;
+		right:-8em;
+		width:3.5em;
+		height:3.5em;
+  }
+}
+@-moz-keyframes pump {
+  from{
+    top:-1.4em;
+		right:-7em;
+		width:2.5em;
+		height:2.5em;
+	}
+  to{
+    top:-1.8em;
+		right:-8em;
+		width:3.5em;
+		height:3.5em;
+  }
+}
+@-ms-keyframes pump {
+  from{
+    top:-1.4em;
+		right:-7em;
+		width:2.5em;
+		height:2.5em;
+	}
+  to{
+    top:-1.8em;
+		right:-8em;
+		width:3.5em;
+		height:3.5em;
+  }
+}
+@-o-keyframes pump {
+  from{
+    top:-1.4em;
+		right:-7em;
+		width:2.5em;
+		height:2.5em;
+	}
+  to{
+    top:-1.8em;
+		right:-8em;
+		width:3.5em;
+		height:3.5em;
+  }
+}
+@keyframes pump {
+  from{
+    top:-1.4em;
+		right:-7em;
+		width:2.5em;
+		height:2.5em;
+	}
+  to{
+    top:-1.8em;
+		right:-8em;
+		width:3.5em;
+		height:3.5em;
+  }
+} */
+/* #endregion speaker */
+
 .player-container {
   display: flex;
   flex-wrap: wrap;
   position: fixed;
   margin: auto;
-  padding: var(--space);
   width: 100vw;
   height: 100vh;
   background-color: var(--color-dark);
@@ -131,13 +253,15 @@ input[type=range].volume:focus::-ms-fill-upper {
 
 .player-container h6 {
   margin: 0 0 1em;
+  font-size: .75em;
   color: var(--color-medium);
   text-transform: uppercase;
 }
 
 .player {
   width: 100%;
-  height: 30vh;
+  padding: var(--space);
+  max-height: 50vh;
 }
 
 .info {
@@ -154,43 +278,45 @@ input[type=range].volume:focus::-ms-fill-upper {
   width: 100%;
 }
 
+#time-total {
+  margin-left: 0em;
+}
+
 .controls {
   position: relative;
   display: block;
-  /* height: 5em; */
   justify-content: center;
   border-radius: var(--border-radius);
   background-color: var(--color-dark_accent);
   padding: .5em;
 }
 
-.progress-bar-container {
-  width: 100%;
-}
-
 #progressBar {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
+  height: .75em;
+  vertical-align: 2em;
 }
 
-#progress-value {
-  width: 100px;
+#progressBar::-webkit-progress-bar {
+  box-shadow: var(--box-shadow_inset);
 }
 
-.top-controls {
-  display: block;
+#progressBar::-webkit-progress-value {
+  background-color: var(--color-dark);
 }
 
 .time-display {
   display: flex;
-  /* width: 2.5em; */
-  height: 2.5em;
   justify-content: center;
-  align-items: center;
+  align-content: center;
+  font-size: .75em;
   background: transparent;
 }
 
-#time-total {
-  margin-left: 1em;
+#time, #time-break, #time-remaining {
+  padding: 0 .5em;
 }
 
 .bottom-controls {
@@ -198,7 +324,40 @@ input[type=range].volume:focus::-ms-fill-upper {
 }
 
 .previous {
-  display: none;
+  width: .25em;
+  height: .25em;
+  border-color: transparent transparent transparent var(--color-light);
+  border-style: solid;
+  border-width: .5em 0 .5em 1em;
+  transform: rotate(180deg);
+}
+
+.previous::before {
+  position: relative;
+  top: -.66em;
+  content: "";
+  border-color: transparent transparent transparent var(--color-light);
+  /* border-color: var(--color-light); */
+  border-style: solid;
+  border-width: .1em;
+}
+
+.next {
+  width: .25em;
+  height: .25em;
+  border-color: transparent transparent transparent var(--color-light);
+  border-style: solid;
+  border-width: .5em 0 .5em 1em;
+}
+
+.next::after {
+  position: relative;
+  top: -.66em;
+  content: "";
+  border-color: transparent transparent transparent var(--color-light);
+  /* border-color: var(--color-light); */
+  border-style: solid;
+  border-width: .1em;
 }
 
 .play {
@@ -209,7 +368,7 @@ input[type=range].volume:focus::-ms-fill-upper {
   justify-content: center;
   align-items: center;
   background: transparent;
-  border: 1px solid white;
+  /* border: 1px solid white; */
   cursor: pointer;
 }
 
@@ -220,7 +379,7 @@ input[type=range].volume:focus::-ms-fill-upper {
   border-color: transparent transparent transparent var(--color-light);
   transition: 125ms all ease;
   /* will-change: border-width; */
-
+  
   border-style: solid;
   border-width: .5em 0 .5em 1em;
 }
@@ -231,13 +390,9 @@ input[type=range].volume:focus::-ms-fill-upper {
   border-width: 0 0 0 .75em;
 }
 
-.next {
-  display: none;
-}
-
 .volume-wrapper {
   /* display: none; */
-  border: 1px solid white;
+  /* border: 1px solid white; */
   display: flex;
   width: 6em;
   justify-content: center;
@@ -262,7 +417,7 @@ input[type=range].volume:focus::-ms-fill-upper {
   position: relative;
   width: 100%;
   height: 70vh;
-  padding-bottom: var(--space);
+  padding: var(--space);
   overflow-y: auto;
 }
 

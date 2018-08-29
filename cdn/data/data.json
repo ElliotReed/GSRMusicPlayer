@@ -1,0 +1,74 @@
+[
+  {
+    "album": "I Love Paris",
+    "songs": [
+      {"track": 1, "title": "I Love Paris"},
+      {"track": 2, "title": "Cheek To Cheek"},
+      {"track": 3, "title": "Beyond The Sea"},
+      {"track": 4, "title": "Under Paris Skies"},
+      {"track": 5, "title": "Les Étoiles"},
+      {"track": 6, "title": "Joseph Joseph"},
+      {"track": 7, "title": "C'est Si Bon"},
+      {"track": 8, "title": "Softly, As In A Morning Sunrise"},
+      {"track": 9, "title": "Happy Feet"},
+      {"track": 10, "title": "C'est Magnifique"},
+      {"track": 11, "title": "La Vie En Rose"},
+      {"track": 12, "title": "Exactly Like You"},
+      {"track": 13, "title": "Digga Digga Doo"}
+    ]
+  },              
+  {
+    "album": "Puttin' On The Ritz",
+    "songs": [
+      {"track": 1, "title": "Coquette"},
+      {"track": 2, "title": "There Will Never Be Another You"},
+      {"track": 3, "title": "Troublant Bolero"},
+      {"track": 4, "title": "Jojo Swing"},
+      {"track": 5, "title": "Viper's Dream"},
+      {"track": 6, "title": "Zapala"},
+      {"track": 7, "title": "Farewell"},
+      {"track": 8, "title": "Swing Gitane"},
+      {"track": 9, "title": "Number One"},
+      {"track": 10, "title": "Puttin' On The Ritz"},
+      {"track": 11, "title": "Unfortunate Rendezvous"}
+    ]
+  },              
+  {
+    "album": "Some Of These Days",
+    "songs": [
+      {"track": 1, "title": "Minor Swing"},
+      {"track": 2, "title": "Some Of These Days"},
+      {"track": 3, "title": "Vals De Cuatro Colinas"},
+      {"track": 4, "title": "Bossa Dorado"},
+      {"track": 5, "title": "J'attendrai"},
+      {"track": 6, "title": "Dark Eyes"},
+      {"track": 7, "title": "Melodie Au Crepescule"},
+      {"track": 8, "title": "Without That Gal"},
+      {"track": 9, "title": "Melancholia"},
+      {"track": 10, "title": "Avalon"},
+      {"track": 11, "title": "Desperate"},
+      {"track": 12, "title": "Stompin' At Decca"},
+      {"track": 13, "title": "Russian Lullaby"},
+      {"track": 14, "title": "I've Found A New Baby"}
+    ]
+  },              
+  {
+    "album": "Under Paris Skies",
+    "songs": [
+      {"track": 1, "title": "What A Night"},
+      {"track": 2, "title": "Just You, Just Me"},
+      {"track": 3, "title": "C'est Si Bon"},
+      {"track": 4, "title": "Bei Mir Bist Du Schoen"},
+      {"track": 5, "title": "Under Paris Skies"},
+      {"track": 6, "title": "Ain'tcha Got Music"},
+      {"track": 7, "title": "La Mer"},
+      {"track": 8, "title": "La Vie En Rose"},
+      {"track": 9, "title": "Who"},
+      {"track": 10, "title": "Nature Boy"},
+      {"track": 11, "title": "When I Grow Too Old To Dream"},
+      {"track": 12, "title": "Plenty Of Money And You"},
+      {"track": 13, "title": "Moonglow"},
+      {"track": 14, "title": "I Hope Gabriel Likes My Music"}
+    ]
+  }              
+]

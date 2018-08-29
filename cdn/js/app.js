@@ -72,7 +72,11 @@ const playerControls = {
   },
 
   setRemainingTime: function() {
-    this.timeRemaining.textContent = "- " + formatTime((audioController.getDuration()) - (audioController.getCurrentTime()));
+    const duration = audioController.getDuration();
+    const current = audioController.getCurrentTime()
+    if ((duration-current) > 0) {
+    this.timeRemaining.textContent = formatTime(duration - current);
+    }
   },
   
   setDuration: function() {
@@ -118,3 +122,7 @@ function songClicked(e) {
 
 const songs = document.querySelectorAll('ol li');
 songs.forEach(song => song.addEventListener('click', songClicked));
+
+fetch("./cdn/data/data.JSON")
+.then(res => res.json())
+.then(data => console.log(data));

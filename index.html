@@ -10,7 +10,7 @@
   <title>Gypsy Swing Revue Music Player</title>
   <link rel="icon"  type="image/x-icon"  href="./cdn/images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./cdn/css/style.css" />
 </head>
 <body>
   <section class="player-container">
@@ -24,32 +24,28 @@
           <div class="artist">Artist: <span>Gypsy Swing Revue</span></div>
           <div class="album">Album: <span></span></div>
           <div class="song">Song: <span></span></div>
+          <div class="song">Time: <span id="time-total"></span></div>
         </div>
       </div>
       <div class="controls">
-        <progress id="progressBar" max="100" value="0" onclick="audioController.setCurrentTime()"></progress>
-        <div class="top-controls">
-          <div class="time-display">
-            <div id="time">00:00</div>
-            <div id="time-break"> / </div> 
-            <div id="time-remaining">00:00</div>
-            <div id="time-total">00:00</div>
-          </div>
+        <div class="time-display">
+          <div id="time">00:00</div>
+          <progress id="progressBar" max="100" value="0" onclick="audioController.setCurrentTime()"></progress>
+          <!-- <div id="time-break"> / </div>  -->
+          <div id="time-remaining">00:00</div>
         </div>
         <div class="bottom-controls">
-          <button class="previous" onclick="playPreviousSong()"></button>
-          <div class="previous" onclick="">
-            <!-- <div class="play-pause"></div> -->
+          <div class="play">
+            <div class="previous" onclick=""></div>
           </div>
           <div class="play" onclick="audioController.togglePlaySong()">
             <div class="play-pause"></div>
           </div>
-          <div class="next" onclick="audioController.togglePlaySong()">
-            <!-- <div class="play-pause"></div> -->
+          <div class="play">
+            <div class="next" onclick=""></div>
           </div>
-          <button class="next" onclick="playNextSong()"></button>
-          <div class="speaker" onclick="">
-            <!-- <div class="play-pause"></div> -->
+          <div class="cover">
+              <span class="icon speaker"></span>
           </div>
           <div class="volume-wrapper">
             <input type="range" class="volume" min="0" max="100" value="75" onchange="audioController.setVolume()" />
@@ -136,7 +132,7 @@
       </ul>
     </div>
   </section>
-  <script src="./app.js"></script>
+  <script src="./cdn/js/app.js"></script>
 </body>
 </html>
 
