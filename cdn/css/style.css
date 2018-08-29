@@ -261,7 +261,7 @@ input[type=range].volume:focus::-ms-fill-upper {
 .player {
   width: 100%;
   padding: var(--space);
-  height: 32vh;
+  height: 35vh;
 }
 
 .info {
@@ -296,7 +296,7 @@ input[type=range].volume:focus::-ms-fill-upper {
   appearance: none;
   width: 100%;
   height: .75em;
-  vertical-align: 2em;
+  vertical-align: .2em;
 }
 
 #progressBar::-webkit-progress-bar {
@@ -309,7 +309,7 @@ input[type=range].volume:focus::-ms-fill-upper {
 
 .time-display {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-content: center;
   font-size: .75em;
   background: transparent;

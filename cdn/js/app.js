@@ -75,7 +75,7 @@ const playerControls = {
     const duration = audioController.getDuration();
     const current = audioController.getCurrentTime()
     if ((duration-current) > 0) {
-    this.timeRemaining.textContent = formatTime(duration - current);
+    this.timeRemaining.textContent = "- " + formatTime(duration - current);
     }
   },
   
