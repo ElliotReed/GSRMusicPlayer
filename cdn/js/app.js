@@ -120,8 +120,15 @@ function songClicked(e) {
   playerInfo.setPlayerInfo();
 }
 
+function handleSongList() {
+  this.nextElementSibling.classList.toggle('show-songs');
+}
+
 const songs = document.querySelectorAll('ol li');
 songs.forEach(song => song.addEventListener('click', songClicked));
+
+const songLists = document.querySelectorAll('.selector-album');
+songLists.forEach(list => list.addEventListener('click', handleSongList));
 
 fetch("./cdn/data/data.JSON")
 .then(res => res.json())
