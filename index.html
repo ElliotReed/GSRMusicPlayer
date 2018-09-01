@@ -5,67 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta description="A music player for Gypsy Swing Revue">
-  <meta keywords="Gypsy swing revue music player Django Reinhardt Stephane Grappeli Kristi Stice Elliot Reed">
-  <meta name="theme-color" content="#191919" />
+  <meta keywords="Gypsy swing revue music player Django Reinhardt Stephane
+    Grappeli Kristi Stice Elliot Reed">
+  <meta name="theme-color" content="#191919"/>
+  <link rel="manifest" href="/manifest.webmanifest">
   <title>Gypsy Swing Revue Music Player</title>
-  <link rel="icon"  type="image/x-icon"  href="./cdn/images/favicon.ico">
+  <link rel="icon"  type="image/x-icon"  href="./cdn/images/favicon/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="./cdn/css/style.css" />
+  <link rel="stylesheet" href="./cdn/css/normalize.css"/>
+  <link rel="stylesheet" href="./cdn/css/style.css"/>
 </head>
 <body>
-  <section class="player-container">
-    <div class="player">
-      <h6>player</h6>
-      <div class="info">
+  <div class="app-container">
+    <section class="player">
+      <h6 class="section-header">player</h6>
+      <div class="player__info">
         <div class="album-cover">
-          <img src="cdn/images/Puttin' On The Ritz.jpg" alt="album cover" />
+          <div class="placeholder__image"></div>
+          <div class="placeholder__reflection"></div>
+          <img class="cover__image" alt="album cover"/>
+          <img class="cover__reflection"/>
         </div>
         <div class="song-info">
           <div class="artist">Artist: <span>Gypsy Swing Revue</span></div>
           <div class="album">Album: <span></span></div>
           <div class="song">Song: <span></span></div>
-          <div class="song">Time: <span id="time-total"></span></div>
+          <div class="song">Time: <span id="time__total"></span></div>
         </div>
       </div>
-      <div class="controls">
-        <progress id="progressBar" max="100" value="0" onclick="audioController.setCurrentTime()"></progress>
-        <div class="time-display">
-          <div id="time">00:00</div>
-          <!-- <div id="time-break"> / </div>  -->
-          <div id="time-remaining">00:00</div>
-        </div>
-        <div class="bottom-controls">
-          <div class="play">
-            <div class="previous" onclick=""></div>
+      <section class="controls">
+        <div class="controls__top">
+          <div class="time__now">00:00</div>
+          <div class="progress">
+            <div class="progress__filled"></div>
           </div>
-          <div class="play" onclick="audioController.togglePlaySong()">
+          <div class="time__remaining">00:00</div>
+        </div>
+        <div class="controls__bottom">
+          <div class="play">
+            <div class="previous"></div>
+          </div>
+          <div class="play">
             <div class="play-pause"></div>
           </div>
           <div class="play">
-            <div class="next" onclick=""></div>
+            <div class="next"></div>
           </div>
           <div class="cover">
               <span class="icon speaker"></span>
           </div>
           <div class="volume-wrapper">
-            <input type="range" class="volume" min="0" max="100" value="75" onchange="audioController.setVolume()" />
+            <input type="range" class="volume" min="0" max="100" value="75" />
           </div>
-            <input name="autoplay" type="radio" class="autoplay" onclick="" />
-            <input name="shuffle" type="radio" class="shuffle" onclick="" />
-          <button class="mute" onclick="">Mute</button>
+            <input name="autoplay" type="radio" class="autoplay"/>
+            <input name="shuffle" type="radio" class="shuffle"/>
+          <button class="mute"></button>
         </div>
-      </div>
-      <audio
-        id="audio" 
-        src="./cdn/sounds/I Love Paris/I Love Paris.m4a"
-        ontimeupdate="playerControls.setPlayTime(), playerControls.setRemainingTime(), playerControls.showPlaying()"
-        onloadeddata="playerControls.setDuration()">
-      </audio>
-    </div>
-    <div class="selector">
-      <h6>selector</h6>
+      </section>
+    </section>
+    <section class="selector">
+      <h6 class="section-header">selector</h6>
       <ul class="select-list">
-        <li class="selector-album"><img src="./cdn/images/I Love Paris.jpg" />I Love Paris</li>
+        <li class="selector-album"><img src="./cdn/images/I Love Paris.jpg"/>
+          I Love Paris
+        </li>
         <div class="song-list">
           <ol data-album="I Love Paris">
             <li>I Love Paris</li>
@@ -83,7 +86,9 @@
             <li>Digga Digga Doo</li>
           </ol>
         </div>
-        <li class="selector-album"><img src="./cdn/images/Puttin' On The Ritz.jpg" />Puttin' On The Ritz</li>
+        <li class="selector-album"><img src="./cdn/images/Puttin' On The Ritz.jpg"/>
+          Puttin' On The Ritz
+        </li>
         <div class="song-list">
           <ol data-album="Puttin' On The Ritz">
             <li>Coquette</li>
@@ -99,7 +104,9 @@
             <li>Unfortunate Rendezvous</li>
           </ol>
         </div>
-        <li class="selector-album"><img src="./cdn/images/Some Of These Days.jpg" />Some Of These Days</li>
+        <li class="selector-album"><img src="./cdn/images/Some Of These Days.jpg"/>
+          Some Of These Days
+        </li>
         <div class="song-list">
           <ol data-album="Some Of These Days">
             <li>Minor Swing</li>
@@ -118,7 +125,9 @@
             <li>I've Found A New Baby</li>
           </ol>
         </div>
-        <li class="selector-album"><img src="./cdn/images/Under Paris Skies.jpg" />Under Paris Skies</li>
+        <li class="selector-album"><img src="./cdn/images/Under Paris Skies.jpg"/>
+          Under Paris Skies
+        </li>
         <div class="song-list">
           <ol data-album="Under Paris Skies">
             <li>What A Night</li>
@@ -138,8 +147,8 @@
           </ol>
         </div>
       </ul>
-    </div>
-  </section>
+    </section>
+  </div>
   <script src="./cdn/js/app.js"></script>
 </body>
 </html>

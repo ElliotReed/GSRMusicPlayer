@@ -1,108 +1,100 @@
-// document.getElementById('audio').controls = true;
+let albumData;
+
+fetch("./cdn/data/data.JSON")
+.then(res => res.json())
+.then(data => {
+  albumData = data;
+});
 
 const currentSong = {
   album: "",
   song: ""
 }
 
-const audioController = {
-  audioElement: document.getElementById('audio'),
-  
-  setAudio: function() {
-    this.audioElement.src = "./cdn/sounds/" + currentSong.album + "/" + currentSong.song + ".m4a"; 
-    return this.audioElement;
-  }, 
-  
-  togglePlaySong: function() {
-    if (!this.audioElement.paused) {
-      this.audioElement.pause();
-    } else {
-      this.audioElement.play();
-    }
-    playerControls.togglePlayPause();
-  },
-  
-  getCurrentTime: function() {
-    const time = this.audioElement.currentTime;
-    return time;
-  },
-  
-  getDuration: function() {
-    const duration = Math.floor(this.audioElement.duration);
-    return duration;
-  },
-  
-  setVolume: function() {
-    this.audioElement.volume = (playerControls.volume.value)/ 100;
-  },
+const media = new Audio();
+const autoplay = false;
 
-  setCurrentTime: function() {
-    const e = window.event;
-    const percent = (e.pageX / e.srcElement.clientWidth);
-    this.audioElement.currentTime = this.audioElement.duration * percent;
+const placeholder = document.querySelector('.placeholder__image');
+const placeholderReflection = document.querySelector('.placeholder__reflection');
+const cover = document.querySelector('.cover__image');
+const coverReflection = document.querySelector('.cover__reflection');
+const songTitle = document.querySelector('.song span');
+const albumTitle = document.querySelector('.album span');
+const timeTotal = document.getElementById('time__total');
+
+const nowTime = document.querySelector('.time__now');
+const progress = document.querySelector('.progress');
+const progressBar = document.querySelector('.progress__filled');
+const playPauseButton = document.querySelector('.play-pause');
+const timeRemaining = document.querySelector('.time__remaining');
+const volume = document.querySelector('.volume');
+
+const player = document.querySelector('.player');
+const selector = document.querySelector('.selector')
+// const cssProperties = document.documentElement;
+
+function setSelectorHeight() {
+  const playerHeight = player.offsetHeight;
+  const windowHeight = window.innerHeight;
+  const windowWidth = window.innerWidth;
+  // Set to media queries
+  if (windowWidth < windowHeight) {
+    if (windowWidth < 578) {
+      selector.style.height = (windowHeight - playerHeight) + 'px' ;
+    }
+  } else {
+    console.log(windowHeight);
+  if ((windowHeight < 578)) {
+    selector.style.height = (windowHeight) + 'px' ;
+  }
+}
+}
+
+function setPlayerInfo() {
+  albumTitle.textContent = currentSong.album;
+  songTitle.textContent = currentSong.song;
+  setCover();
+}
+
+function setCover() {
+  const album = albumData.filter(data => data.album === currentSong.album)
+  image = "/cdn/images/" + album[0].cover;
+  placeholder.style.display = 'none';
+  placeholderReflection.style.display = 'none';
+  cover.src = image;
+  coverReflection.src = image;
+  cover.style.display = 'block';
+  coverReflection.style.display = 'block';
+}
+
+function setAudio() {
+  media.src = "./cdn/sounds/" + currentSong.album + "/" + currentSong.song + ".m4a";
+  return media;
+}
+
+function togglePlaySong() {
+  if (!media.paused) {
+    media.pause();
+  } else {
+    media.play();
   }
 }
 
-const playerControls = {
-  playPauseButton: document.querySelector('.play-pause'),
-  timeRemaining: document.getElementById('time-remaining'),
-  time: document.getElementById('time'),
-  timeTotal: document.getElementById('time-total'),
-  volume: document.querySelector('.volume'),
-  progressBar: document.getElementById('progressBar'),
-
-  showPlaying: function() {
-    const duration = audioController.getDuration();
-    const now = audioController.getCurrentTime();
-    if (duration) {
-      this.progressBar.value = (now/duration)*100;
-    }
-  },
-
-  play: function() {
-    this.playPauseButton.classList.add('pause');
-  },
-  
-  togglePlayPause: function() {
-    this.playPauseButton.classList.toggle('pause');
-  },
-        
-  setPlayTime: function() {
-    this.time.textContent = formatTime(audioController.getCurrentTime());
-  },
-
-  setRemainingTime: function() {
-    const duration = audioController.getDuration();
-    const current = audioController.getCurrentTime()
-    if ((duration-current) > 0) {
-    this.timeRemaining.textContent = "- " + formatTime(duration - current);
-    }
-  },
-  
-  setDuration: function() {
-    this.timeTotal.textContent = formatTime(audioController.getDuration());
-    this.timeRemaining.textContent = formatTime(audioController.getDuration());
-  }, 
+function handleProgress() {
+  const percent = (media.currentTime / media.duration) * 100;
+  progressBar.style.flexBasis = `${percent}%`;
 }
 
-const playerInfo = {
-  cover: document.querySelector('.album-cover img'),
-  songTitle: document.querySelector('.song span'),
-  albumTitle: document.querySelector('.album span'),
+function setCurrentTime(e) {
+  const newTime =(e.offsetX / progress.offsetWidth) * media.duration;
+  media.currentTime = newTime;
+}
 
-  setPlayerInfo: function() {
-    this.cover.src = "./cdn/images/" + currentSong.album + ".jpg";
-    this.albumTitle.textContent = currentSong.album;
-    this.songTitle.textContent = currentSong.song;
+function mediaEnded() {
+  if (!autoplay) {
+    media.currentTime = 0;
   }
 }
-
-function stopSong() {
-  const audio = document.getElementById('audio');
-  audio.currentTime = 0;
-}
-
-
 function formatTime(time) {
   let seconds = Math.floor(time);
   let minutes = Math.floor(seconds / 60);
@@ -112,17 +104,57 @@ function formatTime(time) {
   return minutes + ":" + seconds;
 }
 
-function songClicked(e) {
-  currentSong.album = e.target.parentNode.getAttribute('data-album');
-  currentSong.song = e.target.textContent;
-  audioController.setAudio().play();
-  playerControls.play();
-  playerInfo.setPlayerInfo();
+function getCurrentTime() {
+  return media.currentTime;
+}
+
+
+function getDuration() {
+  const duration = Math.floor(media.duration);
+  return duration;
+}
+
+function setPlayTime() {
+  nowTime.textContent = formatTime(media.currentTime);
+}
+
+function setRemainingTime() {
+  const duration = getDuration();
+  const current = getCurrentTime()
+  if ((duration - current) > 0) {
+    timeRemaining.textContent = formatTime(duration - current);
+  }
+}
+
+function setDuration() {
+  timeTotal.textContent = formatTime(getDuration());
+  timeRemaining.textContent = formatTime(getDuration());
+}
+
+function setVolume() {
+  media.volume = volume.value / 100;
+}
+function togglePlayPause() {
+  if (!media.paused) {
+    playPauseButton.classList.add('pause');
+  } else {
+    playPauseButton.classList.remove('pause');
+  }
 }
 
 function handleSongList() {
   this.nextElementSibling.classList.toggle('show-songs');
 }
+
+function songClicked(e) {
+  currentSong.album = e.target.parentNode.getAttribute('data-album');
+  currentSong.song = e.target.textContent;
+  setAudio().play();
+  setPlayerInfo();
+}
+
+setSelectorHeight();
+window.addEventListener("deviceorientation", setSelectorHeight);
 
 const songs = document.querySelectorAll('ol li');
 songs.forEach(song => song.addEventListener('click', songClicked));
@@ -130,6 +162,26 @@ songs.forEach(song => song.addEventListener('click', songClicked));
 const songLists = document.querySelectorAll('.selector-album');
 songLists.forEach(list => list.addEventListener('click', handleSongList));
 
-fetch("./cdn/data/data.JSON")
-.then(res => res.json())
-.then(data => console.log(data));
+
+media.addEventListener('loadeddata', setDuration);
+media.addEventListener('timeupdate', () => {
+  setPlayTime();
+  setRemainingTime();
+  handleProgress();
+});
+media.addEventListener('loadeddata', setDuration);
+media.addEventListener('play', togglePlayPause);
+media.addEventListener('pause', togglePlayPause);
+media.addEventListener('ended', () => {
+  mediaEnded();
+  togglePlayPause();
+});
+playPauseButton.addEventListener('click', togglePlaySong);
+volume.addEventListener('change', setVolume);
+
+let mousedown = false;
+progress.addEventListener('click', setCurrentTime);
+progress.addEventListener('mousemove', (e) => mousedown && setCurrentTime(e));
+progress.addEventListener('mousedown', () => mousedown = true);
+progress.addEventListener('mouseup', () => mousedown = false);
+
