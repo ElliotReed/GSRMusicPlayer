@@ -1,10 +1,10 @@
 let albumData;
 
 fetch("./cdn/data/data.JSON")
-.then(res => res.json())
-.then(data => {
-  albumData = data;
-});
+  .then(res => res.json())
+  .then(data => {
+    albumData = data;
+  });
 
 const currentSong = {
   album: "",
@@ -40,14 +40,14 @@ function setSelectorHeight() {
   // Set to media queries
   if (windowWidth < windowHeight) {
     if (windowWidth < 578) {
-      selector.style.height = (windowHeight - playerHeight) + 'px' ;
+      selector.style.height = (windowHeight - playerHeight) + 'px';
     }
   } else {
     console.log(windowHeight);
-  if ((windowHeight < 578)) {
-    selector.style.height = (windowHeight) + 'px' ;
+    if ((windowHeight < 578)) {
+      selector.style.height = (windowHeight) + 'px';
+    }
   }
-}
 }
 
 function setPlayerInfo() {
@@ -65,6 +65,10 @@ function setCover() {
   coverReflection.src = image;
   cover.style.display = 'block';
   coverReflection.style.display = 'block';
+}
+
+function setPlacehoderHeight() {
+  placeholder.style.height = placeholder.offsetWidth + 'px';
 }
 
 function setAudio() {
@@ -86,7 +90,7 @@ function handleProgress() {
 }
 
 function setCurrentTime(e) {
-  const newTime =(e.offsetX / progress.offsetWidth) * media.duration;
+  const newTime = (e.offsetX / progress.offsetWidth) * media.duration;
   media.currentTime = newTime;
 }
 
@@ -95,6 +99,7 @@ function mediaEnded() {
     media.currentTime = 0;
   }
 }
+
 function formatTime(time) {
   let seconds = Math.floor(time);
   let minutes = Math.floor(seconds / 60);
@@ -134,6 +139,7 @@ function setDuration() {
 function setVolume() {
   media.volume = volume.value / 100;
 }
+
 function togglePlayPause() {
   if (!media.paused) {
     playPauseButton.classList.add('pause');
@@ -154,8 +160,10 @@ function songClicked(e) {
 }
 
 setSelectorHeight();
-window.addEventListener("deviceorientation", setSelectorHeight);
+setPlacehoderHeight();
 
+window.addEventListener("deviceorientation", setSelectorHeight);
+window.addEventListener('resize', setPlacehoderHeight);
 const songs = document.querySelectorAll('ol li');
 songs.forEach(song => song.addEventListener('click', songClicked));
 
@@ -184,4 +192,3 @@ progress.addEventListener('click', setCurrentTime);
 progress.addEventListener('mousemove', (e) => mousedown && setCurrentTime(e));
 progress.addEventListener('mousedown', () => mousedown = true);
 progress.addEventListener('mouseup', () => mousedown = false);
-

@@ -74,57 +74,212 @@
     "album": "Puttin' On The Ritz",
     "cover": "puttinontheritz-500.png",
     "songs": [
-      {"track": 1, "title": "Coquette", "source": "Coquette.m4a"},
-      {"track": 2, "title": "There Will Never Be Another You", "source": "There Will Never Be Another You.m4a"},
-      {"track": 3, "title": "Troublant Bolero", "source": "Troublant Bolero.m4a"},
-      {"track": 4, "title": "Jojo Swing", "source": "Jojo Swing.m4a"},
-      {"track": 5, "title": "Viper's Dream", "source": "Viper's Dream.m4a"},
-      {"track": 6, "title": "Zapala", "source": "Zapala.m4a"},
-      {"track": 7, "title": "Farewell", "source": "Farewell.m4a"},
-      {"track": 8, "title": "Swing Gitane", "source": "Swing Gitane.m4a"},
-      {"track": 9, "title": "Number One", "source": "Number One.m4a"},
-      {"track": 10, "title": "Puttin' On The Ritz", "source": "Puttin' On The Ritz.m4a"},
-      {"track": 11, "title": "Unfortunate Rendezvous", "source": "Unfortunate Rendezvous.m4a"}
+      {
+        "track": 1,
+        "title": "Coquette",
+        "source": "Coquette.m4a"
+      },
+      {
+        "track": 2,
+        "title": "There Will Never Be Another You",
+        "source": "There Will Never Be Another You.m4a"
+      },
+      {
+        "track": 3,
+        "title": "Troublant Bolero",
+        "source": "Troublant Bolero.m4a"
+      },
+      {
+        "track": 4,
+        "title": "Jojo Swing",
+        "source": "Jojo Swing.m4a"
+      },
+      {
+        "track": 5,
+        "title": "Viper's Dream",
+        "source": "Viper's Dream.m4a"
+      },
+      {
+        "track": 6,
+        "title": "Zapala",
+        "source": "Zapala.m4a"
+      },
+      {
+        "track": 7,
+        "title": "Farewell",
+        "source": "Farewell.m4a"
+      },
+      {
+        "track": 8,
+        "title": "Swing Gitane",
+        "source": "Swing Gitane.m4a"
+      },
+      {
+        "track": 9,
+        "title": "Number One",
+        "source": "Number One.m4a"
+      },
+      {
+        "track": 10,
+        "title": "Puttin' On The Ritz",
+        "source": "Puttin' On The Ritz.m4a"
+      },
+      {
+        "track": 11,
+        "title": "Unfortunate Rendezvous",
+        "source": "Unfortunate Rendezvous.m4a"
+      }
     ]
   },
   {
     "album": "Some Of These Days",
     "cover": "someofthesedays-500.png",
     "songs": [
-      {"track": 1, "title": "Minor Swing", "source": "Minor Swing.m4a"},
-      {"track": 2, "title": "Some Of These Days", "source": "Some Of These Days.m4a"},
-      {"track": 3, "title": "Vals De Cuatro Colinas", "source": "Vals De Cuatro Colinas.m4a"},
-      {"track": 4, "title": "Bossa Dorado", "source": "Bossa Dorado.m4a"},
-      {"track": 5, "title": "J'attendrai", "source": "J'attendrai.m4a"},
-      {"track": 6, "title": "Dark Eyes", "source": "Dark Eyes.m4a"},
-      {"track": 7, "title": "Melodie Au Crepescule", "source": "Melodie Au Crepescule.m4a"},
-      {"track": 8, "title": "Without That Gal", "source": "Without That Gal.m4a"},
-      {"track": 9, "title": "Melancholia", "source": "Melancholia.m4a"},
-      {"track": 10, "title": "Avalon", "source": "Avalon.m4a"},
-      {"track": 11, "title": "Desperate", "source": "Desperate.m4a"},
-      {"track": 12, "title": "Stompin' At Decca", "source": "Stompin' At Decca.m4a"},
-      {"track": 13, "title": "Russian Lullaby", "source": "Russian Lullaby.m4a"},
-      {"track": 14, "title": "I've Found A New Baby", "source": "I've Found A New Baby.m4a"}
+      {
+        "track": 1,
+        "title": "Minor Swing",
+        "source": "Minor Swing.m4a"
+      },
+      {
+        "track": 2,
+        "title": "Some Of These Days",
+        "source": "Some Of These Days.m4a"
+      },
+      {
+        "track": 3,
+        "title": "Vals De Cuatro Colinas",
+        "source": "Vals De Cuatro Colinas.m4a"
+      },
+      {
+        "track": 4,
+        "title": "Bossa Dorado",
+        "source": "Bossa Dorado.m4a"
+      },
+      {
+        "track": 5,
+        "title": "J'attendrai",
+        "source": "J'attendrai.m4a"
+      },
+      {
+        "track": 6,
+        "title": "Dark Eyes",
+        "source": "Dark Eyes.m4a"
+      },
+      {
+        "track": 7,
+        "title": "Melodie Au Crepescule",
+        "source": "Melodie Au Crepescule.m4a"
+      },
+      {"track": 8,
+        "title": "Without That Gal",
+        "source": "Without That Gal.m4a"
+      },
+      {
+        "track": 9,
+        "title": "Melancholia",
+        "source": "Melancholia.m4a"
+      },
+      {
+        "track": 10,
+        "title": "Avalon",
+        "source": "Avalon.m4a"
+      },
+      {
+        "track": 11,
+        "title": "Desperate",
+        "source": "Desperate.m4a"
+      },
+      {
+        "track": 12,
+        "title": "Stompin' At Decca",
+        "source": "Stompin' At Decca.m4a"
+      },
+      {
+        "track": 13,
+        "title": "Russian Lullaby",
+        "source": "Russian Lullaby.m4a"
+      },
+      {
+        "track": 14,
+        "title": "I've Found A New Baby",
+        "source": "I've Found A New Baby.m4a"
+      }
     ]
   },
   {
     "album": "Under Paris Skies",
     "cover": "underparisskies-500.png",
     "songs": [
-      {"track": 1, "title": "What A Night", "source": "What A Night.m4a"},
-      {"track": 2, "title": "Just You, Just Me", "source": "Just You, Just Me.m4a"},
-      {"track": 3, "title": "C'est Si Bon", "source": "C'est Si Bon"},
-      {"track": 4, "title": "Bei Mir Bist Du Schoen", "source": "Bei Mir Bist Du Schoen.m4a"},
-      {"track": 5, "title": "Under Paris Skies", "source": "Under Paris Skies.m4a"},
-      {"track": 6, "title": "Ain'tcha Got Music", "source": "Ain'tcha Got Music.m4a"},
-      {"track": 7, "title": "La Mer", "source": "La Mer"},
-      {"track": 8, "title": "La Vie En Rose", "source": "La Vie En Rose.m4a"},
-      {"track": 9, "title": "Who", "source": "Who.m4a"},
-      {"track": 10, "title": "Nature Boy", "source": "Nature Boy.m4a"},
-      {"track": 11, "title": "When I Grow Too Old To Dream", "source": "When I Grow Too Old To Dream.m4a"},
-      {"track": 12, "title": "Plenty Of Money And You", "source": "Plenty Of Money And You.m4a"},
-      {"track": 13, "title": "Moonglow", "source": "Moonglow.m4a"},
-      {"track": 14, "title": "I Hope Gabriel Likes My Music", "source": "I Hope Gabriel Likes My Music.m4a"}
+      {
+        "track": 1,
+        "title": "What A Night",
+        "source": "What A Night.m4a"
+      },
+      {
+        "track": 2,
+        "title": "Just You, Just Me",
+        "source": "Just You, Just Me.m4a"
+      },
+      {
+        "track": 3,
+        "title": "C'est Si Bon",
+        "source": "C'est Si Bon"
+      },
+      {
+        "track": 4,
+        "title": "Bei Mir Bist Du Schoen",
+        "source": "Bei Mir Bist Du Schoen.m4a"
+      },
+      {
+        "track": 5,
+        "title": "Under Paris Skies",
+        "source": "Under Paris Skies.m4a"
+      },
+      {
+        "track": 6,
+        "title": "Ain'tcha Got Music",
+        "source": "Ain'tcha Got Music.m4a"
+      },
+      {
+        "track": 7,
+        "title": "La Mer",
+        "source": "La Mer"
+      },
+      {
+        "track": 8,
+        "title": "La Vie En Rose",
+        "source": "La Vie En Rose.m4a"
+      },
+      {
+        "track": 9,
+        "title": "Who",
+        "source": "Who.m4a"
+      },
+      {
+        "track": 10,
+        "title": "Nature Boy",
+        "source": "Nature Boy.m4a"
+      },
+      {
+        "track": 11,
+        "title": "When I Grow Too Old To Dream",
+        "source": "When I Grow Too Old To Dream.m4a"
+      },
+      {
+        "track": 12,
+        "title": "Plenty Of Money And You",
+        "source": "Plenty Of Money And You.m4a"
+      },
+      {
+        "track": 13,
+        "title": "Moonglow",
+        "source": "Moonglow.m4a"
+      },
+      {
+        "track": 14,
+        "title": "I Hope Gabriel Likes My Music",
+        "source": "I Hope Gabriel Likes My Music.m4a"
+      }
     ]
   }
 ]

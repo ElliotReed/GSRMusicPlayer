@@ -264,14 +264,16 @@ input[type=range].volume:focus::-ms-fill-upper {
 
 .player__info {
   display: flex;
+  height: 10em;
   margin-bottom: 1em;
 }
 
 .album-cover {
+  display: flex;
+  flex-flow: column;
   position: relative;
-  width: 25%;
-  height: 5em;
-  margin-right: 1em;
+  width: 34%;
+  padding: 0 var(--space) 0 0;
 }
 
 .placeholder__image, .placeholder__reflection,
@@ -285,14 +287,17 @@ input[type=range].volume:focus::-ms-fill-upper {
 }
 
 .placeholder__image, .cover__image {
-  height: 100%;
+  /* height: 100%; */
 }
 
 .placeholder__reflection, .cover__reflection {
-  height: 25%;
-  margin: 0 0 .5em .5em;
+  position: relative;
+  top: .25em;
+  left: 15%;
+  height: 15%;
   opacity: .5;
-  transform: skew(45deg);
+  transform: skew(65deg);
+  box-shadow: 20px 150px 100px var(--color-light);
   -webkit-mask-image: linear-gradient(to top, transparent 25%, black 75%);
   mask-image: linear-gradient(to top, transparent 25%, black 75%);
 }
@@ -300,10 +305,6 @@ input[type=range].volume:focus::-ms-fill-upper {
 
 .cover__image, .cover__reflection {
   display: none;
-}
-
-.album-cover img {
-  width: 100%;
 }
 
 #time-total {
