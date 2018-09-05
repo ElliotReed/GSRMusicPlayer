@@ -1,6 +1,7 @@
 [
   {
     "album": "I Love Paris",
+    "artist": "Gypsy Swing Revue ft. Kristi Stice",
     "cover": "iloveparis-500.png",
     "songs": [
       {
@@ -72,6 +73,7 @@
   },
   {
     "album": "Puttin' On The Ritz",
+    "artist": "Gypsy Swing Revue",
     "cover": "puttinontheritz-500.png",
     "songs": [
       {
@@ -133,6 +135,7 @@
   },
   {
     "album": "Some Of These Days",
+    "artist": "Gypsy Swing Revue",
     "cover": "someofthesedays-500.png",
     "songs": [
       {
@@ -167,8 +170,8 @@
       },
       {
         "track": 7,
-        "title": "Melodie Au Crepescule",
-        "source": "Melodie Au Crepescule.m4a"
+        "title": "Melodie Au Crepuscule",
+        "source": "Melodie Au Crepuscule.m4a"
       },
       {"track": 8,
         "title": "Without That Gal",
@@ -208,6 +211,7 @@
   },
   {
     "album": "Under Paris Skies",
+    "artist": "Lannie Garrett with Gypsy Swing Revue",
     "cover": "underparisskies-500.png",
     "songs": [
       {
