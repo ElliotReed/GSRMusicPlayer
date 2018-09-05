@@ -14,13 +14,7 @@ const currentSong = {
 const media = new Audio();
 const autoplay = false;
 
-const placeholder = document.querySelector('.placeholder__image');
-const placeholderReflection = document.querySelector('.placeholder__reflection');
-const cover = document.querySelector('.cover__image');
-const coverReflection = document.querySelector('.cover__reflection');
-const songTitle = document.querySelector('.song span');
-const albumTitle = document.querySelector('.album span');
-const timeTotal = document.getElementById('time__total');
+const playerInfo = document.querySelector('.player__info');
 
 const nowTime = document.querySelector('.time__now');
 const progress = document.querySelector('.progress');
@@ -31,7 +25,6 @@ const volume = document.querySelector('.volume');
 
 const player = document.querySelector('.player');
 const selector = document.querySelector('.selector')
-// const cssProperties = document.documentElement;
 
 function setSelectorHeight() {
   const playerHeight = player.offsetHeight;
@@ -50,25 +43,46 @@ function setSelectorHeight() {
   }
 }
 
-function setPlayerInfo() {
-  albumTitle.textContent = currentSong.album;
-  songTitle.textContent = currentSong.song;
-  setCover();
-}
-
-function setCover() {
-  const album = albumData.filter(data => data.album === currentSong.album)
-  image = "/cdn/images/" + album[0].cover;
-  placeholder.style.display = 'none';
-  placeholderReflection.style.display = 'none';
-  cover.src = image;
-  coverReflection.src = image;
-  cover.style.display = 'block';
-  coverReflection.style.display = 'block';
-}
-
-function setPlacehoderHeight() {
-  placeholder.style.height = placeholder.offsetWidth + 'px';
+function populatePlayerInfo() {
+  const album = albumData.filter(data => data.album === currentSong.album);
+  const song = album[0].songs.filter(song => song.title === currentSong.song);
+  const imagePath = "/cdn/images/"
+  image = album[0].cover;
+  playerInfo.innerHTML = `
+    <div class="song-info__wrapper">
+      <div class="loader"></div>
+      <div class="album-cover">
+        <img src="${imagePath + image}" class="cover__image" alt="album cover"/>
+      </div>
+      <div class="song-info">
+        <div class="artist">Artist:
+          <div>${album[0].artist}</div>
+        </div>
+        <div class="album">Album:
+          <div>${album[0].album}</div>
+        </div>
+        <div class="song">Song:
+          <div>${song[0].title}</div>
+        </div>
+      </div>
+    </div>
+    <div class="song-info__wrapper-reflection">
+      <div class="album-cover__reflection">
+        <img src="${imagePath + image}" class="cover__reflection"/>
+      </div>
+      <div class="song-info__reflection">
+        <div class="artist">Artist:
+          <div>${album[0].artist}</div>
+        </div>
+        <div class="album">Album:
+          <div>${album[0].album}</div>
+        </div>
+        <div class="song">Song:
+          <div>${song[0].title}</div>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function setAudio() {
@@ -113,10 +127,13 @@ function getCurrentTime() {
   return media.currentTime;
 }
 
-
 function getDuration() {
   const duration = Math.floor(media.duration);
   return duration;
+}
+
+function setDuration() {
+  timeRemaining.textContent = formatTime(getDuration());
 }
 
 function setPlayTime() {
@@ -129,11 +146,6 @@ function setRemainingTime() {
   if ((duration - current) > 0) {
     timeRemaining.textContent = formatTime(duration - current);
   }
-}
-
-function setDuration() {
-  timeTotal.textContent = formatTime(getDuration());
-  timeRemaining.textContent = formatTime(getDuration());
 }
 
 function setVolume() {
@@ -156,14 +168,18 @@ function songClicked(e) {
   currentSong.album = e.target.parentNode.getAttribute('data-album');
   currentSong.song = e.target.textContent;
   setAudio().play();
-  setPlayerInfo();
+  populatePlayerInfo();
+}
+
+function removeLoader() {
+  const loader = document.querySelector('.loader');
+  loader.parentNode.removeChild(loader);
 }
 
 setSelectorHeight();
-setPlacehoderHeight();
 
 window.addEventListener("deviceorientation", setSelectorHeight);
-window.addEventListener('resize', setPlacehoderHeight);
+
 const songs = document.querySelectorAll('ol li');
 songs.forEach(song => song.addEventListener('click', songClicked));
 
@@ -171,13 +187,16 @@ const songLists = document.querySelectorAll('.selector-album');
 songLists.forEach(list => list.addEventListener('click', handleSongList));
 
 
-media.addEventListener('loadeddata', setDuration);
+// media.addEventListener('loadeddata', setDuration);
 media.addEventListener('timeupdate', () => {
   setPlayTime();
   setRemainingTime();
   handleProgress();
 });
-media.addEventListener('loadeddata', setDuration);
+media.addEventListener('loadeddata', () => {
+  setDuration();
+  removeLoader();
+});
 media.addEventListener('play', togglePlayPause);
 media.addEventListener('pause', togglePlayPause);
 media.addEventListener('ended', () => {

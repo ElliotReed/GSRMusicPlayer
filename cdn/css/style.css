@@ -24,14 +24,47 @@
 }
 
 body {
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   font-family: var(--font-family);
   color: var(--color-light);
 }
 
+/* #region loader */
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-top: -32px;
+  margin-left: -32px;
+}
+
+.loader:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: var(--color-medium) transparent var(--color-medium) transparent;
+  animation: loaderspin 1.2s linear infinite;
+}
+
+@keyframes loaderspin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* #endregion loader */
 /* #region volume range input */
 input[type=range].volume {
   -webkit-appearance: none;
@@ -119,7 +152,6 @@ input[type=range].volume:focus::-ms-fill-upper {
   background: rgba(201, 201, 201, 0.64);
 }
 /* #endregion range input */
-
 /* #region speaker */
 .cover {
   display: flex;
@@ -134,13 +166,13 @@ input[type=range].volume:focus::-ms-fill-upper {
 
 /*THE ARTIFAKT ;) */
 .speaker {
-  width:0; 
+  width:0;
 	height:0;
 	background:none;
 	border-top: calc(4em/5) solid transparent;
-	border-bottom: calc(4em/5) solid transparent; 
+	border-bottom: calc(4em/5) solid transparent;
 	border-right: calc(5em/5) solid var(--color-light);
-	
+
 }
 .speaker:before {
   content:"";
@@ -255,60 +287,59 @@ input[type=range].volume:focus::-ms-fill-upper {
 
 .player {
   width: 100%;
-  padding-top: var(--space);
-  padding-right: var(--space);
-  padding-bottom: 0;
-  padding-left: var(--space);
+  padding: var(--space);
   max-height: 50%;
 }
 
 .player__info {
-  display: flex;
-  height: 10em;
-  margin-bottom: 1em;
-}
-
-.album-cover {
-  display: flex;
-  flex-flow: column;
   position: relative;
-  width: 34%;
-  padding: 0 var(--space) 0 0;
+  min-height: 5em;
+  margin-bottom: 1em;
+  overflow: hidden;
 }
 
-.placeholder__image, .placeholder__reflection,
+.song-info__wrapper {
+  display: flex;
+}
+
+.album-cover, .album-cover__reflection {
+  display: block;
+  width: 50%;
+  padding-right: var(--space);
+}
+
 .cover__image, .cover__reflection {
   width: 100%;
 }
 
-.placeholder__image, .placeholder__reflection {
-  display: block;
-  background-color: var(--color-light);
-}
-
-.placeholder__image, .cover__image {
-  /* height: 100%; */
-}
-
-.placeholder__reflection, .cover__reflection {
+.song-info__wrapper-reflection {
+  display: flex;
   position: relative;
-  top: .25em;
-  left: 15%;
-  height: 15%;
+  height: 2em;
   opacity: .5;
-  transform: skew(65deg);
-  box-shadow: 20px 150px 100px var(--color-light);
+  transform-origin: 100% 0;
+  transform: skewX(65deg);
   -webkit-mask-image: linear-gradient(to top, transparent 25%, black 75%);
   mask-image: linear-gradient(to top, transparent 25%, black 75%);
 }
 
-
-.cover__image, .cover__reflection {
-  display: none;
+.artist, .album, .song {
+  width: 100%;
+  font-size: .5em;
+  font-weight: bold;
+  color: var(--color-medium);
 }
 
-#time-total {
-  margin-left: 0em;
+.artist div, .album div, .song div {
+  padding: .1em 0em .25em .25em;
+  font-size: .75rem;
+  font-weight: normal;
+  color: var(--color-light);
+  text-shadow: .25em .25em 0em rgba(255, 255, 255, 0.1);
+}
+
+.song-info__reflection, .cover__reflection {
+  transform: rotateX(180deg);
 }
 
 .controls {
@@ -352,20 +383,12 @@ input[type=range].volume:focus::-ms-fill-upper {
   flex-basis: 0%;
 }
 
-.time-display {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  font-size: .75em;
-  background: transparent;
-}
-
-
 .controls__bottom {
   display: flex;
 }
 
 .previous {
+  display: none;
   width: .25em;
   height: .25em;
   border-color: transparent transparent transparent var(--color-light);
@@ -375,16 +398,17 @@ input[type=range].volume:focus::-ms-fill-upper {
 }
 
 .previous::before {
+  display: none;
   position: relative;
   top: -.66em;
   content: "";
   border-color: transparent transparent transparent var(--color-light);
-  /* border-color: var(--color-light); */
   border-style: solid;
   border-width: .1em;
 }
 
 .next {
+  display: none;
   width: .25em;
   height: .25em;
   border-color: transparent transparent transparent var(--color-light);
@@ -393,24 +417,22 @@ input[type=range].volume:focus::-ms-fill-upper {
 }
 
 .next::after {
+  display: none;
   position: relative;
   top: -.66em;
   content: "";
   border-color: transparent transparent transparent var(--color-light);
-  /* border-color: var(--color-light); */
   border-style: solid;
   border-width: .1em;
 }
 
 .play {
-  /* position: relative; */
   display: flex;
   width: 2.5em;
   height: 2.5em;
   justify-content: center;
   align-items: center;
   background: transparent;
-  /* border: 1px solid white; */
   cursor: pointer;
 }
 
@@ -420,7 +442,6 @@ input[type=range].volume:focus::-ms-fill-upper {
   height: 1em;
   border-color: transparent transparent transparent var(--color-light);
   transition: 125ms all ease;
-  /* will-change: border-width; */
   border-style: solid;
   border-width: .5em 0 .5em 1em;
 }
@@ -432,8 +453,6 @@ input[type=range].volume:focus::-ms-fill-upper {
 }
 
 .volume-wrapper {
-  /* display: none; */
-  /* border: 1px solid white; */
   display: flex;
   width: 6em;
   justify-content: center;
@@ -458,12 +477,11 @@ input[type=range].volume:focus::-ms-fill-upper {
   position: relative;
   width: 100%;
   padding: var(--space);
-  /* list-style: none; */
 }
 
 .select-list {
   position: relative;
-  height: 100%;
+ max-height: calc(100% - 1.75em);  /* - section header */
   overflow-y: auto;
 }
 
@@ -511,13 +529,17 @@ ol li:hover {
   font-size: calc(1em * 1.1)
 }
 
-@media (min-width: 600px) {
+@media (min-width: 600px), (orientation: landscape)  {
   .player, .selector {
     width: 50%;
-    /* height: 100%; */
   }
 
-  .select-list {
-    height: 100%;
+  .artist, .album, .song {
+    font-size: .75em;
+
+  }
+
+  .artist div, .album div, .song div {
+    font-size: 1rem;
   }
 }
