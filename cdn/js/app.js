@@ -1,6 +1,7 @@
 let albumData;
 
 fetch("https://elliotreed.github.io/GSRMusicPlayer/cdn/data/data.JSON")
+  .then(res => console.log(res))
   .then(res => res.json())
   .then(data => {
     albumData = data;
