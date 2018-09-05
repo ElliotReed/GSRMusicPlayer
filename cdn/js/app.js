@@ -1,7 +1,6 @@
 let albumData;
 
-fetch("../data/data.JSON")
-  .then(res => console.log(res))
+fetch("../../cdn/data/data.json")
   .then(res => res.json())
   .then(data => {
     albumData = data;
