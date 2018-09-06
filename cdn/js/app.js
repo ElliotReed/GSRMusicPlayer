@@ -46,7 +46,7 @@ function setSelectorHeight() {
 function populatePlayerInfo() {
   const album = albumData.filter(data => data.album === currentSong.album);
   const song = album[0].songs.filter(song => song.title === currentSong.song);
-  const imagePath = "../cdn/images/"
+  const imagePath = "../images/"
   image = album[0].cover;
   playerInfo.innerHTML = `
     <div class="song-info__wrapper">
