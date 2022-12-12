@@ -3,6 +3,7 @@
     "album": "I Love Paris",
     "artist": "Gypsy Swing Revue ft. Kristi Stice",
     "cover": "iloveparis-500.png",
+    "alt": "A couple dancing at a parisian cafe to musicians, the eifel tower in the background.",
     "songs": [
       {
         "track": 1,
@@ -75,6 +76,7 @@
     "album": "Puttin' On The Ritz",
     "artist": "Gypsy Swing Revue",
     "cover": "puttinontheritz-500.png",
+    "alt": "Two guitarists, a violinist, and a bassist playing gypsy jazz music.",
     "songs": [
       {
         "track": 1,
@@ -137,6 +139,7 @@
     "album": "Some Of These Days",
     "artist": "Gypsy Swing Revue",
     "cover": "someofthesedays-500.png",
+    "alt": "Two guitars, a violin, a clarinet, and a bass.",
     "songs": [
       {
         "track": 1,
@@ -173,7 +176,8 @@
         "title": "Melodie Au Crepuscule",
         "source": "Melodie Au Crepuscule.m4a"
       },
-      {"track": 8,
+      {
+        "track": 8,
         "title": "Without That Gal",
         "source": "Without That Gal.m4a"
       },
@@ -213,6 +217,7 @@
     "album": "Under Paris Skies",
     "artist": "Lannie Garrett with Gypsy Swing Revue",
     "cover": "underparisskies-500.png",
+    "alt": "Lannie Garrett sitting, touching her chin.",
     "songs": [
       {
         "track": 1,
