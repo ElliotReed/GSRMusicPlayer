@@ -1,0 +1,13 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.foreground": "#646464",
+    "statusBar.background": "#202020",
+    "statusBarItem.remoteBackground": "#646464",
+    "statusBarItem.remoteForeground": "#c8c8c8",
+    "titleBar.activeForeground": "#646464",
+    "titleBar.activeBackground": "#202020",
+    "titleBar.inactiveForeground": "#343434",
+    "titleBar.inactiveBackground": "#202020",
+  },
+  "workbench.colorTheme": "Visual Studio Dark"
+}

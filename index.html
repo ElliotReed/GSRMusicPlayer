@@ -1,144 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta description="A music player for Gypsy Swing Revue">
-  <meta keywords="Gypsy swing revue music player Django Reinhardt Stephane
+  <meta name="description" content="A music player for Gypsy Swing Revue">
+  <meta name="keywords" content="Gypsy swing revue music player Django Reinhardt Stephane
     Grappeli Kristi Stice Elliot Reed">
-  <meta name="theme-color" content="#191919"/>
+  <meta name="theme-color" content="#191919">
   <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" type="image/x-icon" href="cdn/images/favicon/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cdn/css/normalize.css">
+  <link rel="stylesheet" href="cdn/css/style.css">
+  <script src="cdn/js/app.js" defer></script>
   <title>Gypsy Swing Revue Music Player</title>
-  <link rel="icon"  type="image/x-icon"  href="cdn/images/favicon/favicon.ico">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" href="cdn/css/normalize.css"/>
-  <link rel="stylesheet" href="cdn/css/style.css"/>
 </head>
+
 <body>
-  <div class="app-container">
+  <header class="app__header">
+    <h1>Gypsy Swing Revue Music Player</h1>
+  </header>
+
+  <main class="main-content">
     <section class="player">
-      <h6 class="section-header">player</h6>
-      <div class="player__info">
-        <div class="pickSong">Pick a song...</div>
-      </div>
-      <section class="controls">
-        <div class="controls__top">
-          <div class="time__now">00:00</div>
-          <div class="progress">
-            <div class="progress__filled"></div>
+      <h2 class="section-header">player</h2>
+
+      <div class="player__info" data-display>
+        <div class="loader" data-loader></div>
+        <div class="song-info__wrapper">
+
+          <div class="album-cover">
+            <img class="cover__image" alt="" data-image />
           </div>
-          <div class="time__remaining">00:00</div>
+
+          <div class="song-info">
+            <p class="song-info__title" data-track></p>
+            <p class="song-info__album" data-album></p>
+          </div>
+
         </div>
+        <div class="song-info__wrapper-reflection">
+          <div class="album-cover__reflection">
+            <img class="cover__image-reflection" alt="" data-image-reflection />
+          </div>
+        </div>
+      </div>
+
+      <div class="controls" data-player>
+        <div class="controls__top">
+          <div class="time__now" data-time-now>00:00</div>
+
+          <div class="progress" data-progress>
+            <div class="progress__filled" data-progress-filled></div>
+          </div>
+
+          <div class="time__remaining" data-time-remaining>00:00</div>
+        </div>
+
         <div class="controls__bottom">
-          <div class="play">
+
+          <!-- <div class="play">
             <div class="previous"></div>
-          </div>
+          </div> -->
+
           <div class="play">
-            <div class="play-pause"></div>
+            <div class="play-pause" data-play-pause></div>
           </div>
-          <div class="play">
+
+
+          <!-- <div class="play">
             <div class="next"></div>
-          </div>
+          </div> -->
+
           <div class="cover">
-              <span class="icon speaker"></span>
+            <span class="icon speaker"></span>
           </div>
+
           <div class="volume-wrapper">
-            <input type="range" class="volume" min="0" max="100" value="75" />
+            <input type="range" class="volume" min="0" max="100" value="75" data-volume>
           </div>
-            <input name="autoplay" type="radio" class="autoplay"/>
-            <input name="shuffle" type="radio" class="shuffle"/>
+
+          <input name="autoplay" type="radio" class="autoplay">
+
+          <input name="shuffle" type="radio" class="shuffle">
+
           <button class="mute"></button>
         </div>
-      </section>
+      </div>
     </section>
-    <section class="selector">
-      <h6 class="section-header">selector</h6>
-      <ul class="select-list">
-        <li class="selector-album"><img src="cdn/images/iloveparis-500.png"/>
-          I Love Paris
-        </li>
-        <div class="song-list">
-          <ol data-album="I Love Paris">
-            <li>I Love Paris</li>
-            <li>Cheek To Cheek</li>
-            <li>Beyond The Sea</li>
-            <li>Under Paris Skies</li>
-            <li>Les Étoiles</li>
-            <li>Joseph Joseph</li>
-            <li>C'est Si Bon</li>
-            <li>Softly, As In A Morning Sunrise</li>
-            <li>Happy Feet</li>
-            <li>C'est Magnifique</li>
-            <li>La Vie En Rose</li>
-            <li>Exactly Like You</li>
-            <li>Digga Digga Doo</li>
-          </ol>
-        </div>
-        <li class="selector-album"><img src="cdn/images/puttinontheritz-500.png"/>
-          Puttin' On The Ritz
-        </li>
-        <div class="song-list">
-          <ol data-album="Puttin' On The Ritz">
-            <li>Coquette</li>
-            <li>There Will Never Be Another You</li>
-            <li>Troublant Bolero</li>
-            <li>Jojo Swing</li>
-            <li>Viper's Dream</li>
-            <li>Zapala</li>
-            <li>Farewell</li>
-            <li>Swing Gitane</li>
-            <li>Number One</li>
-            <li>Puttin' On The Ritz</li>
-            <li>Unfortunate Rendezvous</li>
-          </ol>
-        </div>
-        <li class="selector-album"><img src="cdn/images/someofthesedays-500.png"/>
-          Some Of These Days
-        </li>
-        <div class="song-list">
-          <ol data-album="Some Of These Days">
-            <li>Minor Swing</li>
-            <li>Some Of These Days</li>
-            <li>Vals De Cuatro Colinas</li>
-            <li>Bossa Dorado</li>
-            <li>J'attendrai</li>
-            <li>Dark Eyes</li>
-            <li>Melodie Au Crepuscule</li>
-            <li>Without That Gal</li>
-            <li>Melancholia</li>
-            <li>Avalon</li>
-            <li>Desperate</li>
-            <li>Stompin' At Decca</li>
-            <li>Russian Lullaby</li>
-            <li>I've Found A New Baby</li>
-          </ol>
-        </div>
-        <li class="selector-album"><img src="cdn/images/underparisskies-500.png"/>
-          Under Paris Skies
-        </li>
-        <div class="song-list">
-          <ol data-album="Under Paris Skies">
-            <li>What A Night</li>
-            <li>Just You, Just Me</li>
-            <li>C'est Si Bon</li>
-            <li>Bei Mir Bist Du Schoen</li>
-            <li>Under Paris Skies</li>
-            <li>Ain'tcha Got Music</li>
-            <li>La Mer</li>
-            <li>La Vie En Rose</li>
-            <li>Who</li>
-            <li>Nature Boy</li>
-            <li>When I Grow Too Old To Dream</li>
-            <li>Plenty Of Money And You</li>
-            <li>Moonglow</li>
-            <li>I Hope Gabriel Likes My Music</li>
-          </ol>
-        </div>
-      </ul>
-    </section>
-  </div>
-  <script src="cdn/js/app.js"></script>
-</body>
-</html>
 
+    <section class="selector" data-selector>
+      <h2 class="section-header">selector</h2>
+
+      <ul class="select-list" role="list" data-select-list></ul>
+    </section>
+  </main>
+</body>
+
+</html>

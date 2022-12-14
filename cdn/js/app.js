@@ -1,92 +1,74 @@
 let albumData;
 
-fetch("https://elliotreed.github.io/GSRMusicPlayer/cdn/data/data.json")
-  .then(res => res.json())
-  .then(data => {
-    albumData = data;
-  });
+const current = {
+  album: {},
+  track: {},
+}
 
-const currentSong = {
-  album: "",
-  song: ""
+function getAlbumData() {
+  return fetch("https://elliotreed.github.io/GSRMusicPlayer/cdn/data/data.json")
+    .then(res => res.json())
+}
+
+async function init() {
+  albumData = await getAlbumData()
+  current.album = albumData[0];
+  current.track = current.album.songs[0];
+  setAudio()
+  populatePlayerInfo();
+  insertAlbums(albumData);
+  selector.addEventListener('click', handleSelectorClick)
+}
+
+// #region  PLAYER
+// #region  display
+const display = document.querySelector('[data-display]');
+const playerDisplay = {
+  "coverImage": display.querySelector('[data-image]'),
+  "coverImageReflection": display.querySelector('[data-image-reflection]'),
+  "songTitle": display.querySelector('[data-track]'),
+  "albumTitle": display.querySelector('[data-album]'),
+}
+
+function populatePlayerInfo() {
+  const imagePath = "cdn/images/"
+  image = current.album.cover + "-250.jpg";
+  playerDisplay.coverImage.src = imagePath + image;
+  playerDisplay.coverImage.alt = current.album.alt;
+  playerDisplay.coverImageReflection.src = imagePath + image;
+  playerDisplay.songTitle.textContent = current.track.title;
+  playerDisplay.albumTitle.textContent = current.album.title;
+}
+
+function addLoader() {
+  const loader = document.createElement('div');
+  loader.setAttribute('class', 'loader');
+  loader.dataset.loader = true;
+  display.prepend(loader);
+}
+
+function removeLoader() {
+  const loader = document.querySelector('[data-loader]');
+  loader?.parentNode.removeChild(loader);
+}
+// #endregion  display
+// #region  controls
+const player = document.querySelector('[data-player]');
+const playerControls = {
+  "nowTime": player.querySelector('[data-time-now]'),
+  "progress": player.querySelector('[data-progress]'),
+  "progressBar": player.querySelector('[data-progress-filled]'),
+  "playPauseButton": player.querySelector('[data-play-pause]'),
+  "timeRemaining": player.querySelector('[data-time-remaining]'),
+  "volume": player.querySelector('[data-volume]'),
 }
 
 const media = new Audio();
 const autoplay = false;
 
-const playerInfo = document.querySelector('.player__info');
-
-const nowTime = document.querySelector('.time__now');
-const progress = document.querySelector('.progress');
-const progressBar = document.querySelector('.progress__filled');
-const playPauseButton = document.querySelector('.play-pause');
-const timeRemaining = document.querySelector('.time__remaining');
-const volume = document.querySelector('.volume');
-
-const player = document.querySelector('.player');
-const selector = document.querySelector('.selector')
-
-function setSelectorHeight() {
-  const playerHeight = player.offsetHeight;
-  const windowHeight = window.innerHeight;
-  const windowWidth = window.innerWidth;
-  // Set to media queries
-  if (windowWidth < windowHeight) {
-    if (windowWidth < 578) {
-      selector.style.height = (windowHeight - playerHeight) + 'px';
-    }
-  } else {
-    console.log(windowHeight);
-    if ((windowHeight < 578)) {
-      selector.style.height = (windowHeight) + 'px';
-    }
-  }
-}
-
-function populatePlayerInfo() {
-  const album = albumData.filter(data => data.album === currentSong.album);
-  const song = album[0].songs.filter(song => song.title === currentSong.song);
-  const imagePath = "cdn/images/"
-  image = album[0].cover;
-  playerInfo.innerHTML = `
-    <div class="song-info__wrapper">
-      <div class="loader"></div>
-      <div class="album-cover">
-        <img src="${imagePath + image}" class="cover__image" alt="album cover"/>
-      </div>
-      <div class="song-info">
-        <div class="artist">Artist:
-          <div>${album[0].artist}</div>
-        </div>
-        <div class="album">Album:
-          <div>${album[0].album}</div>
-        </div>
-        <div class="song">Song:
-          <div>${song[0].title}</div>
-        </div>
-      </div>
-    </div>
-    <div class="song-info__wrapper-reflection">
-      <div class="album-cover__reflection">
-        <img src="${imagePath + image}" class="cover__reflection"/>
-      </div>
-      <div class="song-info__reflection">
-        <div class="artist">Artist:
-          <div>${album[0].artist}</div>
-        </div>
-        <div class="album">Album:
-          <div>${album[0].album}</div>
-        </div>
-        <div class="song">Song:
-          <div>${song[0].title}</div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
 function setAudio() {
-  media.src = "./cdn/sounds/" + currentSong.album + "/" + currentSong.song + ".m4a";
+  media.src =
+    "./cdn/sounds/" + current.album.title + "/" + current.track.source;
   return media;
 }
 
@@ -100,7 +82,7 @@ function togglePlaySong() {
 
 function handleProgress() {
   const percent = (media.currentTime / media.duration) * 100;
-  progressBar.style.flexBasis = `${percent}%`;
+  playerControls.progressBar.style.flexBasis = `${percent}%`;
 }
 
 function setCurrentTime(e) {
@@ -133,61 +115,34 @@ function getDuration() {
 }
 
 function setDuration() {
-  timeRemaining.textContent = formatTime(getDuration());
+  playerControls.timeRemaining.textContent = formatTime(getDuration());
 }
 
 function setPlayTime() {
-  nowTime.textContent = formatTime(media.currentTime);
+  playerControls.nowTime.textContent = formatTime(media.currentTime);
 }
 
 function setRemainingTime() {
   const duration = getDuration();
   const current = getCurrentTime()
   if ((duration - current) > 0) {
-    timeRemaining.textContent = formatTime(duration - current);
+    playerControls.timeRemaining.textContent = formatTime(duration - current);
   }
 }
 
 function setVolume() {
-  media.volume = volume.value / 100;
+  media.volume = playerControls.volume.value / 100;
 }
 
 function togglePlayPause() {
   if (!media.paused) {
-    playPauseButton.classList.add('pause');
+    playerControls.playPauseButton.classList.add('pause');
   } else {
-    playPauseButton.classList.remove('pause');
+    playerControls.playPauseButton.classList.remove('pause');
   }
 }
-
-function handleSongList() {
-  this.nextElementSibling.classList.toggle('show-songs');
-}
-
-function songClicked(e) {
-  currentSong.album = e.target.parentNode.getAttribute('data-album');
-  currentSong.song = e.target.textContent;
-  setAudio().play();
-  populatePlayerInfo();
-}
-
-function removeLoader() {
-  const loader = document.querySelector('.loader');
-  loader.parentNode.removeChild(loader);
-}
-
-setSelectorHeight();
-
-window.addEventListener("deviceorientation", setSelectorHeight);
-
-const songs = document.querySelectorAll('ol li');
-songs.forEach(song => song.addEventListener('click', songClicked));
-
-const songLists = document.querySelectorAll('.selector-album');
-songLists.forEach(list => list.addEventListener('click', handleSongList));
-
-
-// media.addEventListener('loadeddata', setDuration);
+// #endregion  controls
+// #region  media
 media.addEventListener('timeupdate', () => {
   setPlayTime();
   setRemainingTime();
@@ -203,11 +158,70 @@ media.addEventListener('ended', () => {
   mediaEnded();
   togglePlayPause();
 });
-playPauseButton.addEventListener('click', togglePlaySong);
-volume.addEventListener('change', setVolume);
+playerControls.playPauseButton.addEventListener('click', togglePlaySong);
+playerControls.volume.addEventListener('change', setVolume);
 
 let mousedown = false;
-progress.addEventListener('click', setCurrentTime);
-progress.addEventListener('mousemove', (e) => mousedown && setCurrentTime(e));
-progress.addEventListener('mousedown', () => mousedown = true);
-progress.addEventListener('mouseup', () => mousedown = false);
+playerControls.progress.addEventListener('click', setCurrentTime);
+playerControls.progress.addEventListener('mousemove', (e) => mousedown && setCurrentTime(e));
+playerControls.progress.addEventListener('mousedown', () => mousedown = true);
+playerControls.progress.addEventListener('mouseup', () => mousedown = false);
+// #endregion  media
+//#endregion  Player 
+
+// #region ===== Selector =====
+const selector = document.querySelector('[data-selector]');
+const selectList = selector.querySelector('[data-select-list]');
+
+function insertAlbums(albumData) {
+  let albumHtml = ``;
+
+  albumData.map(album => {
+    albumHtml += `
+    <li class="selector__album">
+          <header class="album__header" data-album-header>
+            <img src="cdn/images/${album.cover}-100.jpg"
+              alt="${album.alt}">
+
+            <p>${album.title}</p>
+            <div data-album-header-button>&#10094</div>
+          </header>
+
+          <ol class="album__song-list" data-id="${album.id}">
+            ${album.songs.map(song => `<li class="album__song" data-track="${song.track}">${song.title}</li>`).join('')}
+          </ol>
+        </li>
+    `;
+  })
+
+  selectList.innerHTML = albumHtml;
+
+  return true;
+}
+
+function setCurrent(id, track) {
+  current.album = albumData[id];
+  current.track = current.album.songs[track - 1]
+}
+
+function handleSelectorClick(e) {
+  const target = e.target;
+
+  if (target.matches('[data-album-header]')) {
+    target.nextElementSibling.classList.toggle('show-songs');
+    const headerButton = target.querySelector('[data-album-header-button]');
+    headerButton.classList.toggle('opened');
+  }
+
+  if (target.parentNode?.matches('[data-id]')) {
+    addLoader();
+    const id = target.parentNode.dataset.id;
+    const track = target.dataset.track;
+    setCurrent(id, track)
+    setAudio().play();
+    populatePlayerInfo();
+  }
+}
+// #endregion ===== Selector =====
+
+init();
