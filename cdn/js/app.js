@@ -21,23 +21,23 @@ async function init() {
 }
 
 // #region  PLAYER
-// #region  display
+// #region  Display
 const display = document.querySelector('[data-display]');
 const playerDisplay = {
+  "albumTitle": display.querySelector('[data-album]'),
   "coverImage": display.querySelector('[data-image]'),
   "coverImageReflection": display.querySelector('[data-image-reflection]'),
   "songTitle": display.querySelector('[data-track]'),
-  "albumTitle": display.querySelector('[data-album]'),
 }
 
 function populatePlayerInfo() {
   const imagePath = "cdn/images/"
   image = current.album.cover + "-250.jpg";
+  playerDisplay.albumTitle.textContent = current.album.title;
   playerDisplay.coverImage.src = imagePath + image;
   playerDisplay.coverImage.alt = current.album.alt;
   playerDisplay.coverImageReflection.src = imagePath + image;
   playerDisplay.songTitle.textContent = current.track.title;
-  playerDisplay.albumTitle.textContent = current.album.title;
 }
 
 function addLoader() {
@@ -51,14 +51,14 @@ function removeLoader() {
   const loader = document.querySelector('[data-loader]');
   loader?.parentNode.removeChild(loader);
 }
-// #endregion  display
-// #region  controls
+// #endregion Display
+// #region Controls
 const player = document.querySelector('[data-player]');
 const playerControls = {
   "nowTime": player.querySelector('[data-time-now]'),
+  "playPauseButton": player.querySelector('[data-play-pause]'),
   "progress": player.querySelector('[data-progress]'),
   "progressBar": player.querySelector('[data-progress-filled]'),
-  "playPauseButton": player.querySelector('[data-play-pause]'),
   "timeRemaining": player.querySelector('[data-time-remaining]'),
   "volume": player.querySelector('[data-volume]'),
 }
@@ -78,31 +78,40 @@ function togglePlaySong() {
   } else {
     media.play();
   }
+
+  return true;
 }
 
 function handleProgress() {
   const percent = (media.currentTime / media.duration) * 100;
   playerControls.progressBar.style.flexBasis = `${percent}%`;
+
+  return true;
 }
 
 function setCurrentTime(e) {
-  const newTime = (e.offsetX / progress.offsetWidth) * media.duration;
+  const newTime = (e.offsetX / playerControls.progress.offsetWidth) * media.duration;
   media.currentTime = newTime;
+
+  return true;
 }
 
 function mediaEnded() {
   if (!autoplay) {
     media.currentTime = 0;
   }
+
+  return true;
 }
 
 function formatTime(time) {
-  let seconds = Math.floor(time);
-  let minutes = Math.floor(seconds / 60);
-  minutes = (minutes >= 10) ? minutes : "0" + minutes;
-  seconds = Math.floor(seconds % 60);
-  seconds = (seconds >= 10) ? seconds : "0" + seconds;
-  return minutes + ":" + seconds;
+  const totalSeconds = Math.floor(time);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = Math.floor(totalSeconds % 60);
+  const minutesString = String(minutes).padStart(2, 0);
+  const secondsString = String(seconds).padStart(2, 0);
+
+  return minutesString + ":" + secondsString;
 }
 
 function getCurrentTime() {
@@ -110,28 +119,36 @@ function getCurrentTime() {
 }
 
 function getDuration() {
-  const duration = Math.floor(media.duration);
-  return duration;
+  return Math.floor(media.duration);
 }
 
 function setDuration() {
   playerControls.timeRemaining.textContent = formatTime(getDuration());
+
+  return true;
 }
 
 function setPlayTime() {
   playerControls.nowTime.textContent = formatTime(media.currentTime);
+
+  return true;
 }
 
 function setRemainingTime() {
   const duration = getDuration();
-  const current = getCurrentTime()
+  const current = getCurrentTime();
+
   if ((duration - current) > 0) {
     playerControls.timeRemaining.textContent = formatTime(duration - current);
   }
+
+  return true;
 }
 
 function setVolume() {
   media.volume = playerControls.volume.value / 100;
+
+  return true;
 }
 
 function togglePlayPause() {
@@ -140,9 +157,11 @@ function togglePlayPause() {
   } else {
     playerControls.playPauseButton.classList.remove('pause');
   }
+
+  return true;
 }
-// #endregion  controls
-// #region  media
+// #endregion Controls
+// #region Media
 media.addEventListener('timeupdate', () => {
   setPlayTime();
   setRemainingTime();
@@ -166,10 +185,9 @@ playerControls.progress.addEventListener('click', setCurrentTime);
 playerControls.progress.addEventListener('mousemove', (e) => mousedown && setCurrentTime(e));
 playerControls.progress.addEventListener('mousedown', () => mousedown = true);
 playerControls.progress.addEventListener('mouseup', () => mousedown = false);
-// #endregion  media
-//#endregion  Player 
-
-// #region ===== Selector =====
+// #endregion Media
+//#endregion PLAYER 
+// #region SELECTOR
 const selector = document.querySelector('[data-selector]');
 const selectList = selector.querySelector('[data-select-list]');
 
@@ -204,6 +222,17 @@ function setCurrent(id, track) {
   current.track = current.album.songs[track - 1]
 }
 
+function clearSelecteClass() {
+  const songs = selectList.querySelectorAll('[data-track]');
+  [...songs].map(song => {
+    if (song.classList.contains('selected')) {
+      song.classList.remove('selected')
+    }
+  });
+
+  return true;
+}
+
 function handleSelectorClick(e) {
   const target = e.target;
 
@@ -215,13 +244,17 @@ function handleSelectorClick(e) {
 
   if (target.parentNode?.matches('[data-id]')) {
     addLoader();
+    clearSelecteClass();
+    target.classList.add('selected');
     const id = target.parentNode.dataset.id;
     const track = target.dataset.track;
     setCurrent(id, track)
     setAudio().play();
     populatePlayerInfo();
   }
+
+  return true;
 }
-// #endregion ===== Selector =====
+// #endregion SELECTOR
 
 init();

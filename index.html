@@ -1,22 +1,28 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8  ">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="A music player for Gypsy Swing Revue">
+  <link rel="icon" type="image/x-icon" href="cdn/images/favicon/favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#191919">
+  <meta name="author" content="Elliot Reed">
+  <meta name="description" content="A music player for the band Gypsy Swing Revue.">
   <meta name="keywords"
     content="Gypsy swing revue music player Django Reinhardt Stephane Grappeli Kristi Stice Elliot Reed">
-  <meta name="theme-color" content="#191919">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" type="image/x-icon" href="cdn/images/favicon/favicon.ico">
+  <meta property="og:image" content="cdn/images/iloveparis-250.jpg">
+  <meta property="og:description" content="A music player for the band Gypsy Swing Revue.">
+  <meta property="og:title" content="Gypsy Swing Revue Music Player">
+  <meta name="twitter:title" content="Gypsy Swing Revue Music Player">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cdn/css/normalize.css">
   <link rel="stylesheet" href="cdn/css/style.css">
-  <script src="cdn/js/app.js" defer></script>
+  <script defer src="cdn/js/app.js"></script>
   <title>Gypsy Swing Revue Music Player</title>
 </head>
 
@@ -31,10 +37,10 @@
 
       <div class="player__info" data-display>
         <div class="loader" data-loader></div>
-        <div class="song-info__wrapper">
 
+        <div class="song-info__wrapper">
           <div class="album-cover">
-            <img class="cover__image" alt="" data-image />
+            <img class="cover__image" alt="" data-image>
           </div>
 
           <div class="song-info">
@@ -43,9 +49,10 @@
           </div>
 
         </div>
+
         <div class="song-info__wrapper-reflection">
           <div class="album-cover__reflection">
-            <img class="cover__image-reflection" alt="" data-image-reflection />
+            <img class="cover__image-reflection" alt="" data-image-reflection>
           </div>
         </div>
       </div>
@@ -63,18 +70,18 @@
 
         <div class="controls__bottom">
 
-          <!-- <div class="play">
+          <div class="play">
             <div class="previous"></div>
-          </div> -->
+          </div>
 
           <div class="play">
             <div class="play-pause" data-play-pause></div>
           </div>
 
 
-          <!-- <div class="play">
+          <div class="play">
             <div class="next"></div>
-          </div> -->
+          </div>
 
           <div class="cover">
             <span class="icon speaker"></span>
@@ -85,7 +92,6 @@
           </div>
 
           <input name="autoplay" type="radio" class="autoplay">
-
           <input name="shuffle" type="radio" class="shuffle">
 
           <button class="mute"></button>
