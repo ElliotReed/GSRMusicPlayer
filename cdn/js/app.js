@@ -6,7 +6,7 @@ const current = {
 }
 
 function getAlbumData() {
-  return fetch("https://elliotreed.github.io/GSRMusicPlayer/cdn/data/data.json")
+  return fetch(`/cdn/data/data.json`)
     .then(res => res.json())
 }
 
