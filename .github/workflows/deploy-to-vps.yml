@@ -1,0 +1,51 @@
+name: Deploy Static Site to VPS
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+
+# VPS connection
+
+  VPS_HOST: ${{ secrets.VPS_HOST }}
+  VPS_USER: ${{ secrets.VPS_USER }}
+
+# Project config
+
+  SITE_NAME: gypsyswingrevue_music-player
+  NODE_VERSION: "24"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Set remote path
+        run: echo "REMOTE_SITE_PATH=~/apps/${{ env.SITE_NAME }}" >> $GITHUB_ENV
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Add SSH host to known_hosts
+        run: ssh-keyscan ${{ env.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via rsync
+        run: |
+          rsync -avz --delete \
+            --exclude '.git' \
+            --exclude '.github' \
+           ./manifest.webmanifest ./index.html ./favicon.ico ./cdn \
+            ${{ env.VPS_USER }}@${{ env.VPS_HOST }}:${{ env.REMOTE_SITE_PATH }}/
+
+      - name: Deployment summary
+        run: |
+          echo "🚀 Deployed to ${{ env.VPS_HOST }}"
+          echo "📁 Site: ${{ env.SITE_NAME }}"
